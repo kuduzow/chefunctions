@@ -1,4 +1,5 @@
 <?php
+
 function che_split($word)
 {
   $sholha = array(
