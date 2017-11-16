@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Аналог функции str_split для чеченского алфавита
+ * 
+ * @param string $word Текст для разбивки
+ *
+ * @return array Возвращает массив, содержащий разбитый текст 
+ */
+
 function che_split($word)
 {
   $sholha = array(
