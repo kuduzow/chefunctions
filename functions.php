@@ -8,7 +8,7 @@
  * @return array Возвращает массив, содержащий разбитый текст 
  */
 
-function che_split($word)
+function che_split( $word )
 {
   $sholha = array(
             'аь',
@@ -27,23 +27,23 @@ function che_split($word)
             'къ',
             'Iа',
             'гI');
-  $size = mb_strlen($word, 'UTF-8');
-  for($i = 0; $i < $size; $i++)
+  $size = mb_strlen( $word, 'UTF-8' );
+  for( $i = 0; $i < $size; $i++ )
   {
-  	if(in_array(che_strtolower(mb_substr($word, $i, 2, 'UTF-8')), $sholha))
+  	if( in_array( che_strtolower( mb_substr( $word, $i, 2, 'UTF-8' ) ), $sholha ) )
   	{
-  		$result[] = mb_substr($word, $i, 2, 'UTF-8');
+  		$result[] = mb_substr( $word, $i, 2, 'UTF-8' );
   		$i++;
   	}
   	else
   	{
-  		$result[] = mb_substr($word, $i, 1, 'UTF-8');
+  		$result[] = mb_substr( $word, $i, 1, 'UTF-8' );
   	}
   }
   return $result;
 }
 
-function che_strtolower($str)
+function che_strtolower( $str )
 {
 	$str = (string)$str;
 	$size = mb_strlen($str, "UTF-8");
