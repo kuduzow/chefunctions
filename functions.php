@@ -64,7 +64,7 @@ function che_strtolower( $str )
 	return $result;
 }
 
-function che_strlen($str)
+function che_strlen( $str )
 {
 	return count(che_split($str));
 }
