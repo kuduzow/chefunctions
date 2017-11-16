@@ -45,15 +45,15 @@ function che_split( $word )
 
 function che_strtolower( $str )
 {
-	$str = (string)$str;
-	$size = mb_strlen($str, "UTF-8");
+	$str = (string) $str;
+	$size = mb_strlen( $str, "UTF-8" );
 
-	for($i = 0, $result = ''; $i < $size; $i++)
+	for( $i = 0, $result = ''; $i < $size; $i++ )
 	{
-		$current = mb_substr($str, $i, 1, "UTF-8");
-		if($current != 'I')
+		$current = mb_substr( $str, $i, 1, "UTF-8" );
+		if( $current != 'I' )
 		{
-			$result .= mb_strtolower($current, "UTF-8");
+			$result .= mb_strtolower( $current, "UTF-8" );
 	  }
 	  else
 	  {
