@@ -43,13 +43,7 @@ function che_split( $word )
   return $result;
 }
 
-/**
- * Аналог функции strtolower для чеченского алфавита
- * 
- * @param string $str Текст для разбивки
- *
- * @return string Возвращает текст в нижнем регистре 
- */
+
 function che_strtolower( $str )
 {
 	$str = (string) $str;
