@@ -111,10 +111,31 @@ function che_strlen( $str ) {
 	return count( che_split( $str ) );
 }
 
+/**
+ * Функция возвращает входное число в письменном виде
+ * 
+ * @param int  $num     Входное число
+ * @param bool $replace (optional) Необходим для указания, 
+ *                      что функция вызывается рекурсивно.
+ *                      При передаче этого параметра функция
+ *                      Заменяет некоторые слова на более под-
+ *                      ходящие ("цхьаъ" на "цхьа" и т.д.)
+ * 
+ * @return bool|string Письменное написание входного числа, либо 
+ *                     false, если преобразование не удалось
+ */
 function che_num2str( $num, $replace = false ) {
+	/** Убираем из запроса всё, кроме цифр */
 	$num = preg_replace( "|[^0-9]+|", "", $num );
+
+	/** Убираем нули в начале запроса **/
 	$num = preg_replace( "|^[0]+|",   "", $num );
 
+	/**
+	 * Список названий чисел на чеченском языке.
+	 * Учитывается, что в чеченском языке исполь-
+	 * зуется двадцатиричная система счисления.
+	 */
 	$nums = array(
 		#0 => "нуль",
 		1 => "цхьаъ",
@@ -144,6 +165,15 @@ function che_num2str( $num, $replace = false ) {
 		1000 => "эзар",
 		1000000 => "миллион"
 	);
+
+	/**
+	 * Когда функция вызывается рекурсивно в нее передается
+	 * параметр $replace со значением true. Рекурсивно функция
+	 * вызывается для больших чисел, названия которых нет
+	 * в списке выше. Если параметр передан, то нужно заменить
+	 * некоторые названия чисел, т.к. в этом случае они пишутся 
+	 * с некоторым отличием.
+	 */
 	if( $replace === true ) {
 		$nums[1] = "цхьа";
 		$nums[2] = "ши";
@@ -151,32 +181,34 @@ function che_num2str( $num, $replace = false ) {
 		$nums[5] = "пхи";
 	}
 
+	/** Если указано число, название которого уже имеется в списке */
 	if( array_key_exists( $num, $nums ) ) {
 		return $nums[$num];
 	}
-	if( $num < 20 ) {
-		return $nums[$num];
-	}
+
 
 	if( $num < 100 ) {
 		$nums[20] = "ткъе";
 		$twenty = $num % 20;
+
+		/** chr(32) -  пробельный символ. */
 		return $nums[$num - $twenty] . chr( 32 ) . $nums[$twenty];
 	}
 
 	if( $num < 1000 ) {
 		$hundred = $num % 100;
-		return che_num2str( ( $num - $hundred ) / 100, true ) . $nums[100] . che_num2str( $hundred );
+		return che_num2str( ( $num - $hundred ) / 100, true ) . $nums[100] . 
+		       che_num2str( $hundred );
 	}
 
 	if( $num < 1000000 ) {
 		$thousand = substr( $num, 0, -3 );
 		$hundred  = substr( $num,    -3 );
 
-		return che_num2str( $thousand, true ) . $nums[1000] . che_num2str( $hundred );
+		return che_num2str( $thousand, true ) . $nums[1000] . 
+		       che_num2str( $hundred );
 	}
 
 	return false;
 }
 
-?>
