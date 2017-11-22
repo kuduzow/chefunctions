@@ -7,7 +7,6 @@
  *
  * @return array Возвращает массив, содержащий разбитый текст 
  */
-
 function che_split( $word ) {
 	$sholha = array(
 		'аь',
@@ -64,45 +63,6 @@ function che_strtolower( $str )
 function che_strlen( $str )
 {
 	return count( che_split( $str ) );
-}
-
-
-function che_mysql_soundex( $word ) {
-	$word = (string) $word;
-	$size = che_strlen( $word );
-	$elpash = che_split( $word );
-
-	$sholha = array(
-		'аь',
-		'оь',
-		'уь',
-		'юь',
-		'яь',
-		'кI',
-		'пI',
-		'тI',
-		'цI',
-		'чI',
-		'хI',
-		'хь',
-		'кх',
-		'къ',
-		#'Iа',
-		'гI');
-
-	for( $i = 0; $i < $size; $i++ ) {
-		$temp = $elpash;
-		$temp[$i] = "_";
-		$result[] = join( $temp );
-		if( mb_strlen( $word, "UTF-8" ) >= 3 ) {
-			$temp[$i] = "__";
-			$result[] = join( $temp );
-		}
-		unset( $temp[$i] );
-		$result[] = join( $temp );
-	}
-
-	return $result;
 }
 
 function che_num2str( $num, $replace = false ) {
