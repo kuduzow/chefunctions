@@ -95,7 +95,19 @@ function che_strtolower( $str ) {
 	return $result;
 }
 
+/**
+ * Аналог strlen для чеченского алфавита. 
+ * Двойные буквы учитываются как одна.
+ * 
+ * @param string $str Входная строка
+ * 
+ * @return int Количество букв во входной строке 
+ */
 function che_strlen( $str ) {
+	/**
+	 * Подсчет элементов в массиве, который вернула 
+	 * функция che_split().
+	 */
 	return count( che_split( $str ) );
 }
 
