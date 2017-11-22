@@ -212,3 +212,20 @@ function che_num2str( $num, $replace = false ) {
 	return false;
 }
 
+/**
+ * Аналог функции strrev() для чеченского алфавита.
+ *
+ * @param string $str Строка, которую необходимо перевернуть.
+ * 
+ * @return string Перевернутая строка
+ */ 
+function che_strrev( $str ) {
+	/**
+	 * Принятая строка разбивается на массив. После этого 
+	 * массив переворачивается и объединяется в строку.
+	 */
+	return join (
+		array_reverse( che_split( $str ) )
+	);
+}
+
