@@ -38,6 +38,7 @@ function che_split( $word ) {
 		 * регистра. Функция che_strtolower() реализована ниже.
 		 */
 		$double = che_strtolower( mb_substr( $word, $i, 2, 'UTF-8' ) );
+
 		if( in_array( $double, $sholha ) ) {
 			$result[] = mb_substr( $word, $i, 2, 'UTF-8' );
 			$i++;
@@ -50,21 +51,45 @@ function che_split( $word ) {
 	return $result;
 }
 
+/**
+ * Аналог функции strtolower для чеченского алфавита.
+ * Переводит в нижний регистр все буквы, кроме буквы "I".
+ * 
+ * @param string $str Принимаемая строкас текстом
+ * 
+ * @return string Строка, в которой все буквы переведны в нижний 
+ *                регистр, кроме "I".
+ */
 function che_strtolower( $str ) {
-	$str = (string) $str;
+
+	/** Переменная для результирующей строки */
+	$result = '';
+
+	/** Узнаем длину строки */
 	$size = mb_strlen( $str, "UTF-8" );
 
-	for( $i = 0, $result = ''; $i < $size; $i++ )
+	/**
+	 * Цикл обходит всю переданную в функцию строку,
+	 * проверяя при каждом обходе текущий символ. Если 
+	 * этот символ не равен "I", то переводим в нижний 
+	 * регистр, иначе оставляем как есть.
+	 */
+	for( $i = 0; $i < $size; $i++ )
 	{
+		/**
+		 * Использование mb_substr() вместо доступа с
+		 * помощью квадратных скобок [] необходимо из-за
+		 * того, что квадратные скобки возвращают только 
+		 * один указанный байт, а не целый символ (utf-8).
+		 */
 		$current = mb_substr( $str, $i, 1, "UTF-8" );
-		if( $current != 'I' )
-		{
+
+		if( $current != 'I' ) {
 			$result .= mb_strtolower( $current, "UTF-8" );
-	  }
-	  else
-	  {
-	  	$result .= "I";
-	  }
+		}
+		else {
+			$result .= "I";
+		}
 	}
 
 	return $result;
